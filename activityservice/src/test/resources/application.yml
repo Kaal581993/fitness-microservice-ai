@@ -1,0 +1,31 @@
+spring:
+  application:
+    name: activity-service
+  # Disable config server for tests
+  config:
+    import: optional:configserver:http://localhost:8888
+  # Auto-configure test containers for MongoDB
+  mongodb:
+    uri: mongodb://localhost:27017/testdb
+  # Kafka test configuration
+  kafka:
+    bootstrap-servers: localhost:9092
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+
+# Kafka topic for tests
+kafka:
+  topic:
+    name: activity-events-test
+
+# Disable Eureka for tests
+eureka:
+  client:
+    enabled: false
+    register-with-eureka: false
+    fetch-registry: false
+
+# Server port for tests
+server:
+  port: 0  # Random available port
