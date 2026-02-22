@@ -1,41 +1,5 @@
 spring:
   application:
     name: activity-service
-
-  kafka:
-    bootstrap-servers: localhost:9092
-    producer:
-      key-serializer: org.apache.kafka.common.serialization.StringSerializer
-      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
-
-  mongodb:
-    uri: mongodb://fitnessuser:fitnesspass123@localhost:27017/aiactivityfitness?authSource=aiactivityfitness
-
-  jackson:
-    date-format: dd-MM-yyyy
-
-kafka:
-  topic:
-    name: activitty-events
-
-server:
-  port: 8082
-
-eureka:
-  client:
-    serviceUrl:
-      defaultZone: http://localhost:8761/eureka/
-
-
-
-
-
-
-logging:
-  level:
-    org.springframework.boot.context.config: DEBUG
-    org.springframework.data.mongodb.core.MongoTemplate: DEBUG
-    org.springframework.data.mongodb.repository.query: DEBUG
-    com.mongodb.client: DEBUG
-    org.mongodb.driver: DEBUG
-    org.springframework.data.mongodb.core: DEBUG
+  config:
+    import: optional:configserver:http://localhost:8888

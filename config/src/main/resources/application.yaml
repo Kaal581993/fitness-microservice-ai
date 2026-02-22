@@ -7,4 +7,7 @@ spring:
     config:
       server:
         native:
-          search-location:
+          search-locations: classpath:/config
+
+server:
+   port: 8888

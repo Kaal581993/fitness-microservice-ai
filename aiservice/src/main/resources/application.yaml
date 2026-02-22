@@ -1,50 +1,8 @@
 
 
-
 spring:
   application:
-    name: aiservice
+    name: ai-service
+  config:
+    import: optional:configserver:http://localhost:8888
 
-  kafka:
-    bootstrap-servers: localhost:9092
-    consumer:
-      group-id: activity-processor-group
-      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
-      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
-      properties:
-        spring.json.use.type.headers: false
-        spring.json.value.default.type: com.fitness.aiservice.model.Activity
-        spring.json.trusted.packages: "*"
-
-  mongodb:
-    uri: mongodb://fitnessuser:fitnesspass123@localhost:27017/aiactivityfitness?authSource=aiactivityfitness
-
-  jackson:
-    date-format: dd-MM-yyyy
-
-kafka:
-  topic:
-    name: activitty-events
-
-gemini:
-  api:
-    url: ${GEMINI_URL}
-    key: ${GEMINI_KEY}
-
-server:
-  port: 8083
-
-eureka:
-  client:
-    serviceUrl:
-      defaultZone: http://localhost:8761/eureka/
-
-
-logging:
-  level:
-    org.springframework.boot.context.config: DEBUG
-    org.springframework.data.mongodb.core.MongoTemplate: DEBUG
-    org.springframework.data.mongodb.repository.query: DEBUG
-    com.mongodb.client: DEBUG
-    org.mongodb.driver: DEBUG
-    org.springframework.data.mongodb.core: DEBUG
