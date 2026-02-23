@@ -3,3 +3,35 @@ spring:
     name: gateway-service
   config:
     import: optional:configserver:http://localhost:8888
+
+  eureka:
+    instance:
+      hostname: localhost
+      prefer-ip-address: true
+    client:
+      serviceUrl:
+        defaultZone: http://localhost:8761/eureka/
+
+
+
+  logging:
+    level:
+      com.fitness_microservices: DEBUG
+      org.springframework.cloud.netflix.eureka: DEBUG
+server:
+  port: 8080
+
+logging:
+  level:
+    root: INFO
+    org.springframework.cloud.gateway: DEBUG
+    org.springframework.cloud.netflix.eureka: DEBUG
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,gateway
+  endpoint:
+    gateway:
+      enabled: true
