@@ -7,6 +7,7 @@ import MenuItem from '@mui/material/MenuItem';
 import { ActivityTypeArray, ActivityTypeLabels } from '../constants/ActivityType';
 import { TextField } from '@mui/material';
 import Button from '@mui/material/Button';
+import { addActivity } from '../api/activityApi';
 
 const ActivityForm = (onActivitiesAdded) => {
   const [activity, setActivity] = useState({ 
