@@ -1,6 +1,5 @@
-package com.fitness_microservices.userservice.dto;
+package com.example.gateway.userValidationKeycloak;
 
-import com.fitness_microservices.userservice.models.UserRole;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -15,7 +14,7 @@ import java.util.Date;
 public class UserResponse {
 
     private String userID;
-    private String keyCloakId;
+    private String keycloakId;
     private String firstName;
     private String lastName;
     private Date DOB;

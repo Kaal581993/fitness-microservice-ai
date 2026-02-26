@@ -1,14 +1,11 @@
-package com.fitness_microservices.userservice.dto;
+package com.example.gateway.userValidationKeycloak;
 
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fitness_microservices.userservice.models.UserRole;
 import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDateTime;
 import java.util.Date;
 
 @Data

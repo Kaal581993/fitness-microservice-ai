@@ -21,9 +21,20 @@ public class UserService {
     public UserResponse register(RegisterRequest request) {
 
         if(repository.existsByEmail(request.getEmail())){
-            throw  new RuntimeException("Cannot register the user with email:"+request.getEmail()+"as the email has already been registered");
+            User existingUser = repository.findByEmail(request.getEmail());
+
+            UserResponse userResponse = new UserResponse();
+            userResponse.setUserID(existingUser.getUserID());
+            userResponse.setFirstName(existingUser.getFirstName());
+            userResponse.setLastName(existingUser.getLastName());
+            userResponse.setDOB(existingUser.getDOB());
+            userResponse.setEmail(existingUser.getEmail());
+            userResponse.setPassword(existingUser.getPassword());
+
+            return userResponse;
         }
         User user = new User();
+        user.setKeyCloakId(request.getKeyCloakId());
         user.setFirstName(request.getFirstName());
         user.setLastName(request.getLastName());
         user.setUsername(request.getUsername());
@@ -37,9 +48,9 @@ public class UserService {
         userResponse.setUserID(savedUser.getUserID());
         userResponse.setFirstName(savedUser.getFirstName());
         userResponse.setLastName(savedUser.getLastName());
-        userResponse.setDOB(request.getDOB());
-        userResponse.setEmail(request.getEmail());
-        userResponse.setPassword(request.getPassword());
+        userResponse.setDOB(savedUser.getDOB());
+        userResponse.setEmail(savedUser.getEmail());
+        userResponse.setPassword(savedUser.getPassword());
 
         return userResponse;
     }
@@ -49,6 +60,7 @@ public class UserService {
                 .orElseThrow(() -> new RuntimeException("User not found"));
         UserResponse userResponse = new UserResponse();
         userResponse.setUserID(user.getUserID());
+        userResponse.setKeyCloakId(user.getKeyCloakId());
         userResponse.setFirstName(user.getFirstName());
         userResponse.setLastName(user.getLastName());
         userResponse.setDOB(user.getDOB());
@@ -61,6 +73,6 @@ public class UserService {
 
     public  Boolean existByUserId(String userId) {
         log.info("Calling User Service for {}", userId);
-        return repository.existsById(userId);
+        return repository.existsBykeyCloakId(userId);
     }
 }

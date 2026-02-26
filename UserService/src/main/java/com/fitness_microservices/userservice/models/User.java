@@ -21,6 +21,9 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private String userID;
+
+
+    private String keyCloakId;
     private String firstName;
     private String lastName;
 

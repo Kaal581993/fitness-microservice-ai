@@ -1,0 +1,47 @@
+/* ============================================
+   Method 6: Using regular CSS with className
+   ============================================
+   When you need to add custom styles alongside
+   Material UI's internal classes, you can use
+   the regular CSS file with specific selectors.
+*/
+
+/* Basic custom button styling */
+.custom-button {
+  border: 2px solid #ff4081 !important;
+  color: #ff4081 !important;
+  font-weight: 600 !important;
+  transition: all 0.3s ease !important;
+}
+
+.custom-button:hover {
+  background-color: rgba(255, 64, 129, 0.1) !important;
+  transform: scale(1.05) !important;
+}
+
+/* Another custom class example */
+.another-class {
+  padding: 12px 32px !important;
+  letter-spacing: 1px !important;
+}
+
+/* ============================================
+   Using CSS :where() to lower specificity
+   when MUI's !important conflicts
+   ============================================
+*/
+.button-contained-primary:where(.MuiButton-containedPrimary) {
+  background-color: #9c27b0 !important;
+}
+
+/* ============================================
+   Using global theme overrides in CSS
+   ============================================
+*/
+.MuiButton-root {
+  border-radius: 8px !important;
+}
+
+.MuiButton-containedPrimary {
+  background-color: #1976d2 !important;
+}
