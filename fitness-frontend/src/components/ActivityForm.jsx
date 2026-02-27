@@ -7,7 +7,7 @@ import MenuItem from '@mui/material/MenuItem';
 import { ActivityTypeArray, ActivityTypeLabels } from '../constants/ActivityType';
 import { TextField } from '@mui/material';
 import Button from '@mui/material/Button';
-import { addActivity } from '../api/activityApi';
+import { addActivity } from '../services/api';
 
 const ActivityForm = (onActivitiesAdded) => {
   const [activity, setActivity] = useState({ 
@@ -20,6 +20,29 @@ const ActivityForm = (onActivitiesAdded) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
+
+    // Parse line-separated key:value format into JSON object
+    const parseMetrics = (input) => {
+      if (!input || typeof input !== 'string') return {};
+      const lines = input.trim().split('\n');
+      const result = {};
+      lines.forEach(line => {
+        const [key, ...valueParts] = line.split(':');
+        if (key && valueParts.length > 0) {
+          let value = valueParts.join(':').trim();
+          // Try to parse number, otherwise keep as string
+          result[key.trim()] = isNaN(value) ? value : Number(value);
+        }
+      });
+      return result;
+    };
+
+    const parsedMetrics = parseMetrics(activity.additionalMetrics);
+
+    const activityToSend = {
+      ...activity,
+      additionalMetrics: parsedMetrics
+    };
       await addActivity(activity);
 
     
@@ -101,6 +124,26 @@ const ActivityForm = (onActivitiesAdded) => {
           '&:hover fieldset': { borderColor: '#ecfaffff' },
           '&.Mui-focused fieldset': { borderColor: '#ecfaffff' }
         }}} />
+
+        {/* <TextField fullWidth label="Additional Metrics (JSON format)"
+              value={typeof activity.additionalMetrics === 'object' 
+        ? Object.entries(activity.additionalMetrics)
+            .map(([key, val]) => `${key}: ${val}`)
+            .join('\n')
+        : activity.additionalMetrics}
+          onChange={(e) => setActivity({
+            ...activity,
+            additionalMetrics: e.target.value      
+          })}
+        sx={{mb: 2, background: '#424242ff', 
+        borderRadius: '5px',
+        '& .MuiInputBase-input': { color: '#ecfaffff' },
+        '& .MuiInputLabel-root': { color: '#ecfaffff' },
+        '& .MuiOutlinedInput-root': {
+          '& fieldset': { borderColor: '#ecfaffff' },
+          '&:hover fieldset': { borderColor: '#ecfaffff' },
+          '&.Mui-focused fieldset': { borderColor: '#ecfaffff' }
+        }}} /> */}
      
 
             <Button type='submit' variant="contained" sx={{ mt: 2 }}>Add Activity</Button>

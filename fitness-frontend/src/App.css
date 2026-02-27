@@ -30,6 +30,12 @@
    when MUI's !important conflicts
    ============================================
 */
+
+:root{
+   background: #424242ff;
+   color:#ecfaffff !important;
+}
+
 .button-contained-primary:where(.MuiButton-containedPrimary) {
   background-color: #9c27b0 !important;
 }
